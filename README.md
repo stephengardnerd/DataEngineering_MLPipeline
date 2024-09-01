@@ -52,7 +52,7 @@ The Disaster Response Pipeline project is designed to help organizations classif
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/stephengardnerd/DataEngineering_MLPipeline.git
 ```
 
 ### 2. Install Dependencies

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is part of a data science pipeline designed to analyze and classify disaster-related messages. The aim is to categorize these messages so that they can be effectively routed to the appropriate disaster response agencies. The pipeline processes text data, trains a machine learning model, and uses a Flask web app to display visualizations of the data.
+This project is part of a data engineering pipeline designed to analyze and classify disaster-related messages. The aim is to categorize these messages so that they can be effectively routed to the appropriate disaster response agencies. The pipeline processes text data, trains a machine learning model, and uses a Flask web app to display visualizations of the data.
 
 ## Project Components
 

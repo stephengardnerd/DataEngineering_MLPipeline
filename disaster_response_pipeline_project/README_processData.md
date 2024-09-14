@@ -1,5 +1,3 @@
-Here’s how you can run the `process_data.py` script. The instructions assume you have the necessary Python environment set up and that the `process_data.py` script is stored in the correct directory.
-
 ## README Instructions for `process_data.py`
 
 ### Project Overview

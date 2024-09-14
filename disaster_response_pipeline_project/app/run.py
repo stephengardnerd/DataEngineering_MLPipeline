@@ -2,6 +2,16 @@ import subprocess
 import sys
 
 def install(package):
+    """
+    Installs the specified Python package using pip. If the installation fails,
+    the function will exit the program.
+
+    Args:
+    package (str): The name of the package to install.
+
+    Raises:
+    subprocess.CalledProcessError: If the installation fails.
+    """
     try:
         subprocess.check_call([sys.executable, "-m", "pip", "install", package])
     except subprocess.CalledProcessError as e:
@@ -18,6 +28,7 @@ required_packages = [
     'sqlalchemy',
     'scikit-learn'
 ]
+
 # Install missing packages
 for package in required_packages:
     try:
@@ -38,6 +49,15 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 
 def tokenize(text):
+    """
+    Tokenizes and lemmatizes the input text.
+
+    Args:
+    text (str): The text to be tokenized.
+
+    Returns:
+    clean_tokens (list): A list of cleaned and lemmatized tokens.
+    """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -49,9 +69,14 @@ def tokenize(text):
     return clean_tokens
 
 def get_file_locations():
-    # Ask the user for the database file location
+    """
+    Prompts the user to input the file paths for the database and the model pickle file.
+
+    Returns:
+    db_file (str): The file path of the SQLite database.
+    model_file (str): The file path of the model pickle file.
+    """
     db_file = input("Please enter the database file location (e.g., ../data/YourDatabaseName.db): ")
-    # Ask the user for the pickle file location
     model_file = input("Please enter the pickle file location (e.g., ../models/your_model_name.pkl): ")
     return db_file, model_file
 
@@ -65,17 +90,21 @@ df = pd.read_sql_table('DisasterResponse', engine)
 # Load model
 model = load(model_file)
 
-# index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
 def index():
+    """
+    Renders the main page of the web app, displaying two visualizations:
+    1. Distribution of Message Genres.
+    2. Distribution of Message Categories.
+
+    Returns:
+    rendered HTML template for the index page.
+    """
     # Extract data needed for visuals
-    
-    # First visualization: Distribution of Message Genres
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
-    # Second visualization: Distribution of Message Categories
     category_names = df.columns[4:]  # Assuming the first 4 columns are not categories
     category_counts = df[category_names].sum().sort_values(ascending=False)
     
@@ -118,9 +147,14 @@ def index():
     # Render web page with plotly graphs
     return render_template('master.html', ids=ids, graphJSON=graphJSON)
 
-# Web page that handles user query and displays model results
 @app.route('/go')
 def go():
+    """
+    Handles the user query and displays the model results.
+
+    Returns:
+    rendered HTML template for the go page with the classification results.
+    """
     # Save user input in query
     query = request.args.get('query', '') 
 
@@ -136,6 +170,9 @@ def go():
     )
 
 def main():
+    """
+    Main function to run the Flask app.
+    """
     app.run(host='0.0.0.0', port=3001, debug=True)
 
 if __name__ == '__main__':

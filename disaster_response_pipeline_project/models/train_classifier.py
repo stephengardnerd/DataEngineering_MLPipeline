@@ -48,6 +48,17 @@ nltk.download(['punkt_tab', 'wordnet'])
 
 # 1. Load the Data
 def load_data(database_filepath):
+    """
+    Load data from the SQLite database.
+
+    Args:
+    database_filepath: str. Filepath for the SQLite database containing the data.
+
+    Returns:
+    X: pandas DataFrame. Feature data (messages).
+    Y: pandas DataFrame. Target data (categories).
+    category_names: Index. Names of the target categories.
+    """
     print(f"Attempting to load data from database at: {database_filepath}")
     engine = create_engine(f'sqlite:///{database_filepath}')
     df = pd.read_sql_table('DisasterResponse', engine)
@@ -59,6 +70,15 @@ def load_data(database_filepath):
 
 # 2. Tokenization function to process the text
 def tokenize(text):
+    """
+    Tokenize and lemmatize text data.
+
+    Args:
+    text: str. The text to be tokenized and lemmatized.
+
+    Returns:
+    clean_tokens: list. A list of the cleaned tokens.
+    """
     url_regex = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
@@ -72,6 +92,12 @@ def tokenize(text):
 
 # 3. Build the machine learning pipeline
 def build_pipeline():
+    """
+    Build a machine learning pipeline.
+
+    Returns:
+    pipeline: sklearn Pipeline. A machine learning pipeline object.
+    """
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -81,6 +107,17 @@ def build_pipeline():
 
 # Define and perform grid search
 def perform_grid_search(pipeline, X_train, Y_train):
+    """
+    Perform grid search to optimize model parameters.
+
+    Args:
+    pipeline: sklearn Pipeline. The machine learning pipeline to be optimized.
+    X_train: pandas DataFrame. Training data for features.
+    Y_train: pandas DataFrame. Training data for target labels.
+
+    Returns:
+    cv: sklearn GridSearchCV object. The optimized model after grid search.
+    """
     parameters = {
         'clf__estimator__n_estimators': [50],
         'clf__estimator__min_samples_split': [2, 4],

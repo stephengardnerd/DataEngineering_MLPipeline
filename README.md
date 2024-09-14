@@ -1,95 +1,140 @@
-# Disaster Response Pipeline
+```markdown
+# Disaster Response Pipeline Project
 
-This repository contains the final project for the Udacity Data Engineering Nanodegree. The project involves building a machine learning pipeline to categorize disaster response messages into various categories. The pipeline processes text data from disaster-related messages and categorizes them to facilitate quick responses by disaster relief organizations.
+## Overview
 
-## Project Overview
+This project is part of a data science pipeline designed to analyze and classify disaster-related messages. The aim is to categorize these messages so that they can be effectively routed to the appropriate disaster response agencies. The pipeline processes text data, trains a machine learning model, and uses a Flask web app to display visualizations of the data.
 
-The Disaster Response Pipeline project is designed to help organizations classify messages received during disasters. The pipeline:
-- **Processes text data** from messages and categories datasets.
-- **Cleans and prepares the data** for machine learning by splitting category data into separate columns, converting them to binary values, and removing duplicates.
-- **Builds a machine learning model** using a `RandomForestClassifier` wrapped in a `MultiOutputClassifier` to predict multiple categories for each message.
-- **Saves the model** as a pickle file for future use.
+## Project Components
 
-## Components
+1. **Data Processing (`process_data.py`)**:
+   - Merges and cleans the disaster response messages and categories datasets.
+   - Saves the cleaned data into an SQLite database.
 
-### 1. Data Preprocessing
+2. **Model Training (`train_classifier.py`)**:
+   - Loads the cleaned data from the SQLite database.
+   - Trains a machine learning model to classify the messages into multiple categories.
+   - Saves the trained model as a pickle file.
 
-- **Merge Datasets**: The `disaster_messages.csv` and `disaster_categories.csv` datasets are merged on the `id` column.
-- **Clean Data**: Categories are split into 36 individual binary columns, and duplicate rows are removed.
-- **Save Clean Data**: The cleaned data is saved into an SQLite database (`DisasterResponse.db`).
+3. **Web App (`run.py`)**:
+   - Loads the trained model and cleaned data.
+   - Runs a Flask web app that visualizes the distribution of message genres and categories.
+   - Allows users to input a message and see the predicted categories.
 
-### 2. Tokenization and Lemmatization
+## Installation
 
-- **Custom Tokenizer**: A custom tokenizer is implemented to process the text data. The tokenizer:
-  - Replaces URLs with a placeholder.
-  - Tokenizes the text into words.
-  - Lemmatizes each word to its base form.
-  - Normalizes the text to lowercase and removes whitespace.
+### Prerequisites
 
-### 3. Machine Learning Pipeline
-
-- **Pipeline Components**:
-  - `CountVectorizer`: Converts text data into a matrix of token counts.
-  - `TfidfTransformer`: Transforms the count matrix to a normalized term-frequency or TF-IDF representation.
-  - `MultiOutputClassifier`: A wrapper that allows using multiple classifiers, one for each output category.
-  - `RandomForestClassifier`: The model used for classifying each category.
-- **Model Training**: The model is trained on the disaster data and evaluated on test data.
-
-### 4. Model Saving
-
-- **Save Model**: The trained model is saved as a pickle file (`classifier.pkl`) for later use.
-
-## Repository Contents
-
-- **process_data.py**: Script to process the data, clean it, and save it to an SQLite database.
-- **train_classifier.py**: Script to load the data, train the machine learning model, and save the trained model as a pickle file.
-- **README.md**: This file, providing an overview of the project.
-- **data/**: Directory containing the input datasets.
-- **models/**: Directory where the trained model will be saved.
-
-## Usage
+Ensure you have Python installed on your machine. You will also need `pip` to install the necessary Python packages.
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/stephengardnerd/DataEngineering_MLPipeline.git
+git clone https://github.com/your-username/disaster_response_pipeline.git
+cd disaster_response_pipeline
 ```
 
-### 2. Install Dependencies
+### 2. Set Up the Environment
 
-Install the required Python packages using:
+You can use Conda to create a virtual environment:
+
+```bash
+conda create --name disaster_env python=3.9
+conda activate disaster_env
+```
+
+### 3. Install Dependencies
+
+Before running the scripts, install the necessary dependencies:
+
+```bash
+pip install pandas sqlalchemy nltk scikit-learn
+```
+
+Alternatively, you can use the `requirements.txt` file:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run Data Processing Script
+## Usage
 
-Process the data and save it to the SQLite database:
+### 1. Process the Data (`process_data.py`)
+
+This script processes the disaster response data and saves the cleaned data into an SQLite database.
+
+#### Run the Script:
 
 ```bash
-python process_data.py
+python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
 ```
 
-### 4. Run Model Training Script
+### 2. Train the Model (`train_classifier.py`)
 
-Train the model and save it as a pickle file:
+This script trains the machine learning model and saves the trained model as a pickle file.
+
+#### Run the Script:
 
 ```bash
 python train_classifier.py
 ```
 
-### Note
+You will be prompted to enter the file paths for the database and the pickle file:
 
-The final trained model file (`classifier.pkl`) is over 900 MB in size and could not be uploaded to GitHub due to file size limitations. Please run the script locally to generate the model file.
+Example:
 
-## Acknowledgments
+```plaintext
+Please enter the file path of the DisasterResponse.db file: data/DisasterResponse.db
+Please enter the file path to save the trained model pickle file: models/classifier.pkl
+```
 
-This project was completed as part of the Udacity Data Engineering Nanodegree program.
+### 3. Run the Web App (`run.py`)
+
+This script runs a Flask web app that allows users to classify new messages and visualize data.
+
+#### Run the Script:
+
+```bash
+python run.py
+```
+
+### Example Input Message
+
+To test the classifier, you can input a message like:
+
+```plaintext
+"There is a significant need for clean drinking water in the flood-affected areas. Please send water purification tablets and bottled water as soon as possible."
+```
+
+### Visualizations
+
+Once the model is trained and the app is running, the following visualizations will be available:
+
+#### Screenshot #1: 
+**Distribution of Message Genres**
+![Screenshot #1](https://github.com/stephengardnerd/DataEngineering_MLPipeline/blob/main/disaster_response_pipeline_project/DisasterRecovery%20Plot.png)
+
+#### Screenshot #2:
+**Distribution of Message Categories**
+![Screenshot #2](https://github.com/stephengardnerd/DataEngineering_MLPipeline/blob/main/disaster_response_pipeline_project/DisasterRecovery%20Plot2.png)
+
+## File Descriptions
+
+- **`process_data.py`**: Script for cleaning and processing disaster response data.
+- **`train_classifier.py`**: Script for training and saving the machine learning model.
+- **`run.py`**: Flask web app script that visualizes data and allows message classification.
+- **`requirements.txt`**: List of dependencies required for running the project.
+- **`data/`**: Directory containing the input datasets.
+- **`models/`**: Directory where the trained model will be saved.
+
+## Acknowledgements
+
+This project was completed as part of the Udacity Data Engineering Nanodegree program. The dataset used in this project is provided by [Figure Eight](https://www.figure-eight.com/).
 
 ## Contact
 
 For any questions or issues, please reach out through GitHub.
 
----
+```
 
+This README file provides a comprehensive guide to setting up and running the scripts in your project. It includes installation instructions, usage examples, and details about the project's components. You can copy this content into a `README.md` file in your GitHub repository, replace placeholders with actual links and your username, and include screenshots of the visualizations as needed.

@@ -1,4 +1,3 @@
-```markdown
 # Disaster Response Pipeline Project
 
 ## Overview

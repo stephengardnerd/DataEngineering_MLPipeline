@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is part of a data science pipeline designed to analyze and classify disaster-related messages. The aim is to categorize these messages so that they can be effectively routed to the appropriate disaster response agencies. The pipeline processes text data, trains a machine learning model, and uses a Flask web app to display visualizations of the data.
+This project is part of a data engineering pipeline designed to analyze and classify disaster-related messages. The aim is to categorize these messages so that they can be effectively routed to the appropriate disaster response agencies. The pipeline processes text data, trains a machine learning model, and uses a Flask web app to display visualizations of the data.
 
 ## Project Components
 
@@ -29,7 +29,7 @@ Ensure you have Python installed on your machine. You will also need `pip` to in
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/disaster_response_pipeline.git
+git clone https://github.com/stephengardnerd/DataEngineering_MLPipeline.git
 cd disaster_response_pipeline
 ```
 
@@ -136,4 +136,3 @@ For any questions or issues, please reach out through GitHub.
 
 ```
 
-This README file provides a comprehensive guide to setting up and running the scripts in your project. It includes installation instructions, usage examples, and details about the project's components. You can copy this content into a `README.md` file in your GitHub repository, replace placeholders with actual links and your username, and include screenshots of the visualizations as needed.

@@ -29,7 +29,7 @@ Ensure you have Python installed on your machine. You will also need `pip` to in
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/disaster_response_pipeline.git
+git clone https://github.com/stephengardnerd/DataEngineering_MLPipeline.git
 cd disaster_response_pipeline
 ```
 

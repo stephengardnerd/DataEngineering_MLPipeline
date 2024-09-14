@@ -136,4 +136,3 @@ For any questions or issues, please reach out through GitHub.
 
 ```
 
-This README file provides a comprehensive guide to setting up and running the scripts in your project. It includes installation instructions, usage examples, and details about the project's components. You can copy this content into a `README.md` file in your GitHub repository, replace placeholders with actual links and your username, and include screenshots of the visualizations as needed.

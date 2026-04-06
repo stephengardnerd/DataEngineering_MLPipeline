@@ -1,72 +1,15 @@
-import subprocess
 import sys
-
-def install(package):
-    """
-    Installs the specified Python package using pip. If the installation fails,
-    the function will exit the program.
-
-    Args:
-    package (str): The name of the package to install.
-
-    Raises:
-    subprocess.CalledProcessError: If the installation fails.
-    """
-    try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-    except subprocess.CalledProcessError as e:
-        print(f"Failed to install {package}: {e}")
-        sys.exit(1)
-
-# List of required packages
-required_packages = [
-    'pandas',
-    'plotly',
-    'joblib',
-    'nltk',
-    'flask',
-    'sqlalchemy',
-    'scikit-learn'
-]
-
-# Install missing packages
-for package in required_packages:
-    try:
-        __import__(package)
-    except ImportError:
-        install(package)
-
 import json
 import plotly
 import pandas as pd
 from joblib import load
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
 from flask import Flask, render_template, request, jsonify
 from plotly.graph_objs import Bar, Pie
 from sqlalchemy import create_engine
+sys.path.insert(0, '..')
+from utils import tokenize
 
 app = Flask(__name__)
-
-def tokenize(text):
-    """
-    Tokenizes and lemmatizes the input text.
-
-    Args:
-    text (str): The text to be tokenized.
-
-    Returns:
-    clean_tokens (list): A list of cleaned and lemmatized tokens.
-    """
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
-
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
-
-    return clean_tokens
 
 def get_file_locations():
     """
@@ -76,8 +19,8 @@ def get_file_locations():
     db_file (str): The file path of the SQLite database.
     model_file (str): The file path of the model pickle file.
     """
-    db_file = input("Please enter the database file location (e.g., ../data/YourDatabaseName.db): ")
-    model_file = input("Please enter the pickle file location (e.g., ../models/your_model_name.pkl): ")
+    db_file = sys.argv[1] if len(sys.argv) > 1 else "../data/DisasterResponse.db"
+    model_file = sys.argv[2] if len(sys.argv) > 2 else "../models/classifier.pkl"
     return db_file, model_file
 
 # Get the file locations from the user
@@ -173,7 +116,7 @@ def main():
     """
     Main function to run the Flask app.
     """
-    app.run(host='0.0.0.0', port=3001, debug=True)
+    app.run(host='0.0.0.0', port=3001, debug=False)
 
 if __name__ == '__main__':
     main()

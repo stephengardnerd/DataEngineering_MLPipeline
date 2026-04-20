@@ -1,6 +1,8 @@
 # Disaster Response Pipeline
 
-![Banner](assets/banner.png)
+<p align="center">
+  <img src="assets/banner.png" alt="Disaster Response Pipeline banner" width="500"/>
+</p>
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Completed-success.svg)

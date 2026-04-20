@@ -1,7 +1,7 @@
 # Disaster Response Pipeline
 
 <p align="center">
-  <img src="assets/banner.png" alt="Disaster Response Pipeline banner" width="500"/>
+  <img src="assets/hero.svg" alt="Disaster Response Pipeline — ETL to TF-IDF to RandomForest to Flask" width="100%"/>
 </p>
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
